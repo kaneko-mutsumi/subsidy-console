@@ -5,4 +5,7 @@ public enum ApplicationStatus {
   APPROVED,    // 交付決定
   PAID,        // 支払済
   WITHDRAWN    // 取下げ
+  ;
+
+
 }

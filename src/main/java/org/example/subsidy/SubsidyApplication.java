@@ -45,15 +45,14 @@ public class SubsidyApplication {
     return status;
   }
 
-  @Override
-  public String toString() {
-    return "SubsidyApplication{" +
-        "id=" + id +
-        ", applicantName='" + applicantName + '\'' +
-        ", applicationDate=" + applicationDate +
-        ", amount=" + amount +
-        ", status=" + status +
-        '}';
-  }
 
+  public String summary() {
+    return String.format(
+        "申請ID: %d, 申請者名: %s, 申請日: %s, 金額: %s, 状態: %s",
+        id,
+        applicantName,
+        applicationDate,
+        amount,
+        status);
+  }
 }
