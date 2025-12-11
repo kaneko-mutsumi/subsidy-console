@@ -36,22 +36,62 @@ public class Main {
     // 申請一覧の表示
     System.out.println("=== 申請一覧 ===");
     for (SubsidyApplication app : applications) {
-      System.out.println(app.summary());
+      printApplication(app);
     }
+
+    // 支払い済み申請の表示
+    System.out.println("\n=== 支払済み申請一覧 ===");
+    for (SubsidyApplication app : applications) {
+      printPaidApplication(app);
+    }
+
     // 申請金額の合計を計算
     System.out.println("\n=== 申請金額の合計 ===");
+    BigDecimal totalAmount = calcTotalAmount(applications);
+    System.out.println("申請金額の合計: " + totalAmount);
+
+    // ステータス別の合計金額を計算するメソッド
+    System.out.println("\n=== ステータスごとの合計金額 ===");
+    for (ApplicationStatus status : ApplicationStatus.values()) {
+      BigDecimal statusTotal = calcStatusTotalAmount(applications, status);
+      System.out.println(status + " の合計金額: " + statusTotal);
+    }
+  }
+
+  // 1件申請の表示用メソッド
+  private static void printApplication(SubsidyApplication app) {
+    System.out.println(app.summary());
+  }
+
+  // 支払済み申請の表示用メソッド
+  private static void printPaidApplication(SubsidyApplication app) {
+    if (app.getStatus() == ApplicationStatus.PAID) {
+      System.out.println(app.summary());
+    }
+  }
+
+  // 合計金額を計算するメソッド
+  private static BigDecimal calcTotalAmount(List<SubsidyApplication> applications) {
     BigDecimal totalAmount = BigDecimal.ZERO;
 
     for (SubsidyApplication app : applications) {
       totalAmount = totalAmount.add(app.getAmount());
     }
-    System.out.println("申請金額の合計: " + totalAmount);
+    return totalAmount;
+  }
 
-    System.out.println("=== 申請状況（日本語）一覧 ===");
+  // ステータス別の合計金額を計算するメソッド
+  private static BigDecimal calcStatusTotalAmount(
+      List<SubsidyApplication> applications,
+      ApplicationStatus status) {
+    BigDecimal statusTotal = BigDecimal.ZERO;
+
     for (SubsidyApplication app : applications) {
-      System.out.println(app.getStatus());
+      if (app.getStatus() == status) {
+        statusTotal = statusTotal.add(app.getAmount());
+      }
     }
+    return statusTotal;
   }
 }
-
 

@@ -28,19 +28,15 @@ public class SubsidyApplication {
   public long getId() {
     return id;
   }
-
   public String getApplicantName() {
     return applicantName;
   }
-
   public LocalDate getApplicationDate() {
     return applicationDate;
   }
-
   public BigDecimal getAmount() {
     return amount;
   }
-
   public ApplicationStatus getStatus() {
     return status;
   }
